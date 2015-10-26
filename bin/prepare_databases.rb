@@ -46,6 +46,15 @@ databases.each do |name|
     updated_at: frozen_time
   )
 
+  project_configuration = db.from(:project_configurations).insert(
+    id: 1,
+    project_id: project_id,
+    api_key: api_key,
+    estimate_mode: "estimate-mode",
+    created_at: frozen_time,
+    updated_at: frozen_time
+  )
+
   iteration_id = db.from(:iterations).insert(
     id: 1,
     project_id: project_id,
