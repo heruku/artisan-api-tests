@@ -18,6 +18,7 @@ databases.each do |name|
   db.from(:projects).delete
   db.from(:iterations).delete
   db.from(:stories).delete
+  db.from(:project_configurations).delete
 
   if name == 'artisan-development'
     Sequel.default_timezone = :utc
