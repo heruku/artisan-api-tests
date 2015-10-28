@@ -54,10 +54,10 @@ RSpec.describe 'artisan API' do
 
   describe 'get api/projects/stories' do
     it 'valid request' do
-      expect(base_query.get_projects_stories.code).to eq(compare_query.get_projects_stories.code)
+      expect(base_query.get_stories.code).to eq(compare_query.get_stories.code)
 
-      uno_response = base_query.get_projects_stories.parsed_response
-      deux_response = compare_query.get_projects_stories.parsed_response
+      uno_response = base_query.get_stories.parsed_response
+      deux_response = compare_query.get_stories.parsed_response
 
       uno_response.each_with_index do |story, index|
         # accounts for disconnect between intended vs actual behavior of existing API
@@ -71,7 +71,7 @@ RSpec.describe 'artisan API' do
       base_query.key = 'bad'
       compare_query.key = 'bad'
 
-      expect_match(compare_query.get_projects_stories, base_query.get_projects_stories)
+      expect_match(compare_query.get_stories, base_query.get_stories)
     end
   end
 end

@@ -20,10 +20,6 @@ class Query
     HTTParty.get "http://#{address}/api/projects/iterations/#{iteration_number}/total_billed_points_by_craftsman", :headers => {'accept' => 'application/json'}, :query => {'key' => key}
   end
 
-  def get_projects_stories
-    HTTParty.get "http://#{address}/api/projects/stories", :headers => { 'accept' => 'application/json' }, :query => { 'key' => key }
-  end
-
   def get_signoff_pdf(iteration_id)
     response = HTTParty.get(
       'http://' + address + '/api/reports',
