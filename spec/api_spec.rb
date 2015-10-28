@@ -51,4 +51,26 @@ RSpec.describe 'artisan API' do
       expect_match(compare_query.get_iteration_total_billed_points_by_craftsman(iteration_number), base_query.get_iteration_total_billed_points_by_craftsman(iteration_number))
     end
   end
+
+  describe 'get api/projects/stories' do
+    it 'valid request' do
+      expect(base_query.get_stories.code).to eq(compare_query.get_stories.code)
+
+      uno_response = base_query.get_stories.parsed_response
+      deux_response = compare_query.get_stories.parsed_response
+
+      uno_response.zip(deux_response) do |uno, deux|
+        uno.delete("assigned_user")
+        uno.delete("assigned_user_options")
+        expect(uno.to_a).to eq(uno.to_a & deux.to_a)
+      end
+    end
+
+    it 'with bad key' do
+      base_query.key = 'bad'
+      compare_query.key = 'bad'
+
+      expect_match(compare_query.get_stories, base_query.get_stories)
+    end
+  end
 end
