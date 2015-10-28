@@ -131,8 +131,25 @@ databases.each do |name|
     updated_at: frozen_time
   }
 
-  other_story_attributes = {
+  backlog_story_attributes = {
     id: 2,
+    iteration_id: nil,
+    optimistic: 1,
+    realistic: 2,
+    pessimistic: 3,
+    project_id: project_id,
+    acceptance_criteria: "Do it later",
+    deleted: false,
+    assigned_user_id: user_id,
+    creator_id: user_id,
+    nonbillable: false,
+    completed_at: nil,
+    created_at: frozen_time,
+    updated_at: frozen_time
+  }
+
+  other_story_attributes = {
+    id: 3,
     iteration_id: other_iteration_id,
     optimistic: 2,
     realistic: 3,
@@ -150,10 +167,12 @@ databases.each do |name|
 
   if name == 'artisan-development'
     story_attributes.merge!(complete: true)
+    backlog_story_attributes.merge!(complete: false)
     other_story_attributes.merge!(complete: true)
   end
 
   story_id = db.from(:stories).insert(story_attributes)
+  backlog_story_id = db.from(:stories).insert(backlog_story_attributes)
   other_story_id = db.from(:stories).insert(other_story_attributes)
 end
 
