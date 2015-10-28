@@ -11,10 +11,10 @@ RSpec.describe 'artisan API' do
   end
 
   def expect_match_all_but_assigned_user(compare_query_request, base_query_request)
-    expect(base_query_request.call.code).to eq(compare_query_request.call.code)
+    expect(base_query_request.code).to eq(compare_query_request.code)
 
-    uno_response = base_query_request.call.parsed_response
-    deux_response = compare_query_request.call.parsed_response
+    uno_response = base_query_request.parsed_response
+    deux_response = compare_query_request.parsed_response
 
     uno_response.zip(deux_response) do |uno, deux|
       uno.delete("assigned_user")
@@ -67,8 +67,8 @@ RSpec.describe 'artisan API' do
 
   describe 'get api/projects/stories' do
     it 'valid request' do
-      compare_query_request = -> { compare_query.get_stories }
-      base_query_request = -> { base_query.get_stories }
+      compare_query_request = compare_query.get_stories
+      base_query_request = base_query.get_stories
       expect_match_all_but_assigned_user(compare_query_request, base_query_request)
     end
 
@@ -82,8 +82,8 @@ RSpec.describe 'artisan API' do
 
   describe 'get api/projects/stories/backlog' do
     it 'valid request' do
-      compare_query_request = -> { compare_query.get_backlog_stories }
-      base_query_request = -> { base_query.get_backlog_stories }
+      compare_query_request = compare_query.get_backlog_stories
+      base_query_request = base_query.get_backlog_stories
       expect_match_all_but_assigned_user(compare_query_request, base_query_request)
     end
 
@@ -97,8 +97,8 @@ RSpec.describe 'artisan API' do
 
   describe 'get api/projects/iterations/stories' do
     it 'valid request' do
-      compare_query_request = -> { compare_query.get_stories_by_iteration(1) }
-      base_query_request = -> { base_query.get_stories_by_iteration(1) }
+      compare_query_request = compare_query.get_stories_by_iteration(1)
+      base_query_request = base_query.get_stories_by_iteration(1)
       expect_match_all_but_assigned_user(compare_query_request, base_query_request)
     end
 
