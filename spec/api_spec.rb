@@ -59,11 +59,10 @@ RSpec.describe 'artisan API' do
       uno_response = base_query.get_stories.parsed_response
       deux_response = compare_query.get_stories.parsed_response
 
-      uno_response.each_with_index do |story, index|
-        # accounts for disconnect between intended vs actual behavior of existing API
-        story.delete("assigned_user")
-        story.delete("assigned_user_options")
-        expect(story.to_a).to eq(story.to_a & deux_response[index].to_a)
+      uno_response.zip(deux_response) do |uno, deux|
+        uno.delete("assigned_user")
+        uno.delete("assigned_user_options")
+        expect(uno.to_a).to eq(uno.to_a & deux.to_a)
       end
     end
 
