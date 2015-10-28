@@ -109,4 +109,17 @@ RSpec.describe 'artisan API' do
       expect_match(compare_query.get_stories_by_iteration(1), base_query.get_stories_by_iteration(1))
     end
   end
+
+  describe 'get api/projects/users' do
+    it 'valid request' do
+      expect_match(compare_query.get_users, base_query.get_users)
+    end
+
+    it 'with bad key' do
+      base_query.key = 'bad'
+      compare_query.key = 'bad'
+
+      expect_match(compare_query.get_users, base_query.get_users)
+    end
+  end
 end
