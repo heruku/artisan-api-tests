@@ -44,7 +44,7 @@ class Query
   end
 
   def get_stories_by_iteration(iteration_number)
-    response = HTTParty.get(
+    HTTParty.get(
       "http://#{address}/api/projects/iterations/stories",
       :headers => {
         'accept' => 'application/json'
@@ -54,7 +54,6 @@ class Query
         'iteration_number' => iteration_number
       }
     )
-    response.body
   end
 
   def get_stories
