@@ -73,4 +73,8 @@ class Query
     response = HTTParty.get "http://#{address}/api/auth/authenticate", :headers => {'accept' => 'application/json'}, :query => {'username' => username, 'password' => password}
     response.body
   end
+
+  def get_users
+    HTTParty.get "http://#{address}/api/projects/users", :headers => { 'accept' => 'application/json' }, :query => { 'key' => key }
+  end
 end

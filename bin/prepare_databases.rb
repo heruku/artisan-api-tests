@@ -68,6 +68,13 @@ databases.each do |name|
     updated_at: frozen_time
   )
 
+  member_id = db.from(:members).insert(
+    user_id: user_id,
+    project_id: project_id,
+    created_at: frozen_time,
+    updated_at: frozen_time
+  )
+
   project_configuration = db.from(:project_configurations).insert(
     id: 1,
     project_id: project_id,
