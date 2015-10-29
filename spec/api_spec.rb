@@ -10,6 +10,7 @@ RSpec.describe 'artisan API' do
     expect(compare.parsed_response).to eq(base.parsed_response)
   end
 
+  # TODO - verify deleted content not required by services using Artisan
   def expect_match_all_but_assigned_user(compare_query_request, base_query_request)
     expect(base_query_request.call.code).to eq(compare_query_request.call.code)
 
@@ -120,6 +121,24 @@ RSpec.describe 'artisan API' do
       compare_query.key = 'bad'
 
       expect_match(compare_query.get_users, base_query.get_users)
+    end
+  end
+
+  describe 'get /api/reports' do
+    it 'valid request' do
+      uno = base_query.get_signoff_pdf(1)
+      deux = compare_query.get_signoff_pdf(1)
+
+      # TODO: verify old pdf format not required by services using Artisan
+      expect(deux.code).to eq(uno.code)
+      expect(deux.headers["content-type"]).to eq(uno.headers["content-type"])
+    end
+
+    it 'with bad key' do
+      base_query.key = 'bad'
+      compare_query.key = 'bad'
+
+      expect_match(compare_query.get_signoff_pdf(1), base_query.get_signoff_pdf(1))
     end
   end
 end

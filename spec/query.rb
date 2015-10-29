@@ -21,7 +21,7 @@ class Query
   end
 
   def get_signoff_pdf(iteration_id)
-    response = HTTParty.get(
+    HTTParty.get(
       'http://' + address + '/api/reports',
       :headers => {
         'accept' => 'application/pdf'
@@ -40,7 +40,6 @@ class Query
         }
       }
     )
-    response.body
   end
 
   def get_stories_by_iteration(iteration_number)
